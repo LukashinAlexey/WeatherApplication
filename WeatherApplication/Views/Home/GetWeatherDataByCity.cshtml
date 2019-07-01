@@ -1,0 +1,24 @@
+﻿@model WeatherBLL.Models.WeatherDataModel
+
+@{
+    ViewData["Title"] = "GetWeatherDataByCity";
+}
+
+
+@if (Model == null)
+{
+    <h3>Incorrect city name or index</h3>
+}
+else
+{
+
+    String ss = @Model.WeatherElement.Last().Icon;
+    <h2>Weather in @Model.Sys.Country @Model.Name</h2>
+    <h3>Current temperature is @Model.MainWeather.Temperature <img src=@Model.WeatherElement.Last().Icon /></h3>
+    <p>
+        Max temperature is @Model.MainWeather.MaximalTemperature, min temperature is @Model.MainWeather.MinimalTemperature
+    </p>
+
+}
+
+
