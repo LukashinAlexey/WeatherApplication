@@ -66,7 +66,7 @@ namespace WeatherBLL.Models
         public double Temperature { get; set; }
 
         [JsonProperty("pressure")]
-        public int Pressure { get; set; }
+        public double Pressure { get; set; }
 
         [JsonProperty("humidity")]
         public int Humidity { get; set; }
@@ -76,6 +76,12 @@ namespace WeatherBLL.Models
 
         [JsonProperty("temp_max")]
         public double MaximalTemperature { get; set; }
+
+        [JsonProperty("sea_level")]
+        public double SeaLevel { get; set; }
+
+        [JsonProperty("grnd_level")]
+        public double GrndLevel { get; set; }
     }
 
     public class Wind
@@ -84,7 +90,7 @@ namespace WeatherBLL.Models
         public double Speed { get; set; }
 
         [JsonProperty("deg")]
-        public int Degree { get; set; }
+        public double Degree { get; set; }
     }
 
     public class Clouds
