@@ -1,7 +1,4 @@
-﻿using Refit;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 using System.Threading.Tasks;
 using WeatherBLL.Interfaces;
 using WeatherBLL.Models;

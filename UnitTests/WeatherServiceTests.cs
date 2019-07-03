@@ -4,7 +4,6 @@ using WeatherBLL.Services;
 using Moq;
 using WeatherBLL.Models;
 using System.Collections.Generic;
-using System;
 
 namespace UnitTests
 {
