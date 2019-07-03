@@ -33,6 +33,7 @@ namespace WeatherBLL.Services
 
                 SetIconURL(weatherData);
                 ConvertKelvinToCelcil(weatherData);
+                ConvertTimeToString(weatherData);
             }
             catch (Exception ex)
             {
@@ -40,6 +41,31 @@ namespace WeatherBLL.Services
             }
 
             return weatherData;
+        }
+
+        private void ConvertTimeToString(WeatherDataModel weatherData)
+        {
+            if (weatherData.MainWeather == null)
+            {
+                throw new ApplicationException("Sys is null");
+            }
+            weatherData.Sys.Sunrise += weatherData.Timezone;
+            weatherData.Sys.Sunrise %= 86400;
+            int hours = weatherData.Sys.Sunrise / 3600;
+            int minutes = weatherData.Sys.Sunrise / 60 - hours * 60;
+            int seconds = weatherData.Sys.Sunrise - (hours * 3600) - (minutes * 60);
+
+            weatherData.Sys.SunriseText = hours.ToString() + " : " + minutes.ToString() + " : " + seconds.ToString();
+
+            weatherData.Sys.Sunset += weatherData.Timezone;
+            weatherData.Sys.Sunset %= 86400;
+            int hours1 = weatherData.Sys.Sunset / 3600;
+            int minutes1 = weatherData.Sys.Sunset / 60 - hours1 * 60;
+            int seconds1 = weatherData.Sys.Sunset - hours1 * 3600 - minutes1 * 60;
+
+            weatherData.Sys.SunsetText = hours1.ToString() + " : " + minutes1.ToString() + " : " + seconds1.ToString();
+
+
         }
 
         private void ConvertKelvinToCelcil(WeatherDataModel weatherData)

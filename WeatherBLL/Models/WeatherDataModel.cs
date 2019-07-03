@@ -116,8 +116,14 @@ namespace WeatherBLL.Models
         [JsonProperty("sunrise")]
         public int Sunrise { get; set; }
 
+        [JsonProperty("sunrisetext")]
+        public string SunriseText { get; set; }
+
         [JsonProperty("sunset")]
         public int Sunset { get; set; }
+
+        [JsonProperty("sunsettext")]
+        public string SunsetText { get; set; }
     }
 
     public class WeatherElement

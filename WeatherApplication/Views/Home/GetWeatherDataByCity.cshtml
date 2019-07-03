@@ -14,10 +14,24 @@ else
 
     String ss = @Model.WeatherElement.Last().Icon;
     <h2>Weather in @Model.Sys.Country @Model.Name</h2>
-    <h3>Current temperature is @Model.MainWeather.Temperature <img src=@Model.WeatherElement.Last().Icon /></h3>
+    <h3>Current temperature is @Model.MainWeather.Temperature°C <img src=@Model.WeatherElement.Last().Icon /></h3>
     <p>
-        Max temperature is @Model.MainWeather.MaximalTemperature, min temperature is @Model.MainWeather.MinimalTemperature
+        Other weather components:
     </p>
+
+
+    <div class="mobileTable">
+        <table class="cwdtable" cellspacing="0" cellpadding="1" border="1">
+            <tr><th>Weather component</th><th>Value</th></tr>
+            <tr><td>Max temperature</td><td>@Model.MainWeather.MaximalTemperature°C</td></tr>
+            <tr><td>Min temperature</td><td>@Model.MainWeather.MinimalTemperature°C</td></tr>
+            <tr><td>Pressure</td><td>@Model.MainWeather.Pressure mbar</td></tr>
+            <tr><td>Sunrise</td><td>@Model.Sys.SunriseText</td></tr>
+            <tr><td>Sunset</td><td>@Model.Sys.SunsetText</td></tr>
+            <tr><td>Humidity</td><td>@Model.MainWeather.Humidity%</td></tr>
+            <tr><td>Wind speed</td><td>@Model.Wind.Speed m/s</td></tr>
+        </table>
+    </div>
 
 }
 

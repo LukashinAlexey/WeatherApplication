@@ -35,3 +35,75 @@ body {
         display: none;
     }
 }
+
+
+.cwdtable {
+    font-size: 20pt;
+    color: #333333;
+    width: 600px;
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #ffffff;
+    border-collapse: collapse;
+    border-radius: 10px;
+    border-spacing: 0;
+}
+
+    .cwdtable th {
+        font-size: 18pt;
+        color: #c4c4c4;
+        background-color: #6e6e6e;
+        border-width: 1px;
+        padding: 8px;
+        border-style: solid;
+        border-color: #ffffff;
+    }
+
+th:first-child {
+    border-top-left-radius: 20px;
+}
+
+th:last-child {
+    border-top-right-radius: 20px;
+    border-right: none;
+}
+
+tr:last-child td:first-child {
+    border-radius: 0 0 0 20px;
+}
+
+tr:last-child td:last-child {
+    border-radius: 0 0 20px 0;
+}
+
+tr td:last-child {
+    border-right: none;
+}
+
+.cwdtable tr {
+    background-color: #dbdbdb;
+}
+
+.cwdtable td {
+    font-size: 14pt;
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #ffffff;
+}
+
+.mobileTable {
+    overflow: auto;
+    width: 100%
+}
+
+.cwdtable th, .cwdtable td {
+    text-align: left
+}
+
+.cwdtable tr:hover {
+    background-color: #ffbc8c;
+}
+
+
