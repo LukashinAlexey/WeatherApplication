@@ -3,6 +3,11 @@ for details on configuring this project to bundle and minify static web assets. 
 body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color: #b8b8b8;
+}
+
+hr {
+    border-color: #333333;
 }
 
 /* Wrapping element */
@@ -41,13 +46,13 @@ body {
     font-size: 20pt;
     color: #333333;
     width: 600px;
-    border-width: 1px;
+    border-width: 0px;
     padding: 8px;
     border-style: solid;
-    border-color: #ffffff;
     border-collapse: collapse;
-    border-radius: 10px;
+    border-radius: 20px;
     border-spacing: 0;
+    background-color: #b8b8b8;
 }
 
     .cwdtable th {
@@ -57,7 +62,7 @@ body {
         border-width: 1px;
         padding: 8px;
         border-style: solid;
-        border-color: #ffffff;
+        border-color: #b8b8b8;
     }
 
 th:first-child {
@@ -90,7 +95,7 @@ tr td:last-child {
     border-width: 1px;
     padding: 8px;
     border-style: solid;
-    border-color: #ffffff;
+    border-color: #b8b8b8;
 }
 
 .mobileTable {

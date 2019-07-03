@@ -4,35 +4,36 @@
     ViewData["Title"] = "GetWeatherDataByCity";
 }
 
+    <body>
+        @if (Model == null)
+        {
+            <h2><b> Incorrect city name or index</b></h2>
+            <img src="/images/404-Error-100x100.png">
+        }
+        else
+        {
 
-@if (Model == null)
-{
-    <h3>Incorrect city name or index</h3>
-}
-else
-{
-
-    String ss = @Model.WeatherElement.Last().Icon;
-    <h2>Weather in @Model.Sys.Country @Model.Name</h2>
-    <h3>Current temperature is @Model.MainWeather.Temperature°C <img src=@Model.WeatherElement.Last().Icon /></h3>
-    <p>
-        Other weather components:
-    </p>
-
-
-    <div class="mobileTable">
-        <table class="cwdtable" cellspacing="0" cellpadding="1" border="1">
-            <tr><th>Weather component</th><th>Value</th></tr>
-            <tr><td>Max temperature</td><td>@Model.MainWeather.MaximalTemperature°C</td></tr>
-            <tr><td>Min temperature</td><td>@Model.MainWeather.MinimalTemperature°C</td></tr>
-            <tr><td>Pressure</td><td>@Model.MainWeather.Pressure mbar</td></tr>
-            <tr><td>Sunrise</td><td>@Model.Sys.SunriseText</td></tr>
-            <tr><td>Sunset</td><td>@Model.Sys.SunsetText</td></tr>
-            <tr><td>Humidity</td><td>@Model.MainWeather.Humidity%</td></tr>
-            <tr><td>Wind speed</td><td>@Model.Wind.Speed m/s</td></tr>
-        </table>
-    </div>
-
-}
+            String ss = @Model.WeatherElement.Last().Icon;
+            <h2><b>Weather in @Model.Sys.Country @Model.Name</b></h2>
+            <h3>Current temperature is @Model.MainWeather.Temperature°C <img src=@Model.WeatherElement.Last().Icon></h3>
+            <p>
+                Other weather components:
+            </p>
 
 
+            <div class="mobileTable">
+                <table class="cwdtable" cellspacing="0" cellpadding="1" border="1">
+                    <tr><th>Weather component</th><th>Value</th></tr>
+                    <tr><td>Max temperature</td><td>@Model.MainWeather.MaximalTemperature°C</td></tr>
+                    <tr><td>Min temperature</td><td>@Model.MainWeather.MinimalTemperature°C</td></tr>
+                    <tr><td>Pressure</td><td>@Model.MainWeather.Pressure mbar</td></tr>
+                    <tr><td>Sunrise</td><td>@Model.Sys.SunriseText</td></tr>
+                    <tr><td>Sunset</td><td>@Model.Sys.SunsetText</td></tr>
+                    <tr><td>Humidity</td><td>@Model.MainWeather.Humidity%</td></tr>
+                    <tr><td>Wind speed</td><td>@Model.Wind.Speed m/s</td></tr>
+                </table>
+            </div>
+
+        }
+
+    </body>

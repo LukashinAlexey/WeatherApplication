@@ -7,9 +7,12 @@ namespace WeatherBLL.Services
 {
     public class WeatherService : IWeatherService
     {
-        private readonly IWeatherDataProvider _weatherDataProvider;
+        public const int SecondsInOneDay = 86400;
+        public const int SecondsInOneHour = 3600;
+        public const int SecondsInOneMinute = 60;
+        public const double ValueCelciusAtZeroKelvin = -273.15;
         private const string _weaterAPIKey = "76dc8ff0fe330fb97e42bf67173c373b"; //вынести ключ в аппсетингс
-
+        private readonly IWeatherDataProvider _weatherDataProvider;
 
         public WeatherService(IWeatherDataProvider weatherDataProvider)
         {
@@ -47,25 +50,11 @@ namespace WeatherBLL.Services
                 throw new ApplicationException("Sys is null");
             }
 
-            
-
-
             weatherData.Sys.Sunrise += weatherData.Timezone;
-            weatherData.Sys.Sunrise %= 86400;//вынести в константы
-            int hours = weatherData.Sys.Sunrise / 3600;//вынести в константы
-            int minutes = weatherData.Sys.Sunrise / 60 - hours * 60;//вынести в константы
-            int seconds = weatherData.Sys.Sunrise - (hours * 3600) - (minutes * 60);
-
-            weatherData.Sys.SunriseText = $"{hours}:{minutes}:{seconds}";
-
             weatherData.Sys.Sunset += weatherData.Timezone;
-            weatherData.Sys.Sunset %= 86400;
-            int hours1 = weatherData.Sys.Sunset / 3600;
-            int minutes1 = weatherData.Sys.Sunset / 60 - hours1 * 60;
-            int seconds1 = weatherData.Sys.Sunset - hours1 * 3600 - minutes1 * 60;
 
-            weatherData.Sys.SunsetText = hours1.ToString() + " : " + minutes1.ToString() + " : " + seconds1.ToString();
-
+            weatherData.Sys.SunriseText = ConvertTime(weatherData.Sys.Sunrise);
+            weatherData.Sys.SunsetText = ConvertTime(weatherData.Sys.Sunset);
         }
 
         private void ConvertKelvinToCelcil(WeatherDataModel weatherData)
@@ -74,11 +63,10 @@ namespace WeatherBLL.Services
             {
                 throw new ApplicationException("MainWeather is null");
             }
-            weatherData.MainWeather.MinimalTemperature -= 273.15;
 
-            weatherData.MainWeather.MaximalTemperature -= 273.15;//вынести в константы
-
-            weatherData.MainWeather.Temperature -= 273.15;
+            weatherData.MainWeather.MinimalTemperature += ValueCelciusAtZeroKelvin;
+            weatherData.MainWeather.MaximalTemperature += ValueCelciusAtZeroKelvin;
+            weatherData.MainWeather.Temperature += ValueCelciusAtZeroKelvin;
         }
 
         private void SetIconURL(WeatherDataModel weatherData)
@@ -87,10 +75,21 @@ namespace WeatherBLL.Services
             {
                 throw new ApplicationException("WeatherElement is null");
             }
+
             weatherData.WeatherElement.ForEach(x =>
             {
                 x.Icon = $"http://openweathermap.org/img/wn/{x.Icon}@2x.png";
             });
+        }
+
+        private string ConvertTime(int time)
+        {
+            time %= SecondsInOneDay;
+            int hours = time / SecondsInOneHour;
+            int minutes = time / SecondsInOneMinute - hours * SecondsInOneMinute;
+            int seconds = time - (hours * SecondsInOneHour) - (minutes * SecondsInOneMinute);
+
+            return $"{hours}:{minutes}:{seconds}";
         }
     }
 }
