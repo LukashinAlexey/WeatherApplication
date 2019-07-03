@@ -9,7 +9,7 @@ namespace WeatherBLL.Configurations
 {
     public static class DependencyInjectionConfig
     {
-        private const string _weaterAPIURL = "http://api.openweathermap.org";
+        private const string _weaterAPIURL = "http://api.openweathermap.org";//PascalCase
 
         public static void ConfigureDependencyInjection(this IServiceCollection services)
         {

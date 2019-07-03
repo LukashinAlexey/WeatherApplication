@@ -8,7 +8,7 @@ namespace WeatherBLL.Services
     public class WeatherService : IWeatherService
     {
         private readonly IWeatherDataProvider _weatherDataProvider;
-        private const string _weaterAPIKey = "76dc8ff0fe330fb97e42bf67173c373b";
+        private const string _weaterAPIKey = "76dc8ff0fe330fb97e42bf67173c373b"; //вынести ключ в аппсетингс
 
 
         public WeatherService(IWeatherDataProvider weatherDataProvider)
@@ -46,13 +46,17 @@ namespace WeatherBLL.Services
             {
                 throw new ApplicationException("Sys is null");
             }
+
+            
+
+
             weatherData.Sys.Sunrise += weatherData.Timezone;
-            weatherData.Sys.Sunrise %= 86400;
-            int hours = weatherData.Sys.Sunrise / 3600;
-            int minutes = weatherData.Sys.Sunrise / 60 - hours * 60;
+            weatherData.Sys.Sunrise %= 86400;//вынести в константы
+            int hours = weatherData.Sys.Sunrise / 3600;//вынести в константы
+            int minutes = weatherData.Sys.Sunrise / 60 - hours * 60;//вынести в константы
             int seconds = weatherData.Sys.Sunrise - (hours * 3600) - (minutes * 60);
 
-            weatherData.Sys.SunriseText = hours.ToString() + " : " + minutes.ToString() + " : " + seconds.ToString();
+            weatherData.Sys.SunriseText = $"{hours}:{minutes}:{seconds}";
 
             weatherData.Sys.Sunset += weatherData.Timezone;
             weatherData.Sys.Sunset %= 86400;
@@ -61,7 +65,6 @@ namespace WeatherBLL.Services
             int seconds1 = weatherData.Sys.Sunset - hours1 * 3600 - minutes1 * 60;
 
             weatherData.Sys.SunsetText = hours1.ToString() + " : " + minutes1.ToString() + " : " + seconds1.ToString();
-
 
         }
 
@@ -73,10 +76,11 @@ namespace WeatherBLL.Services
             }
             weatherData.MainWeather.MinimalTemperature -= 273.15;
 
-            weatherData.MainWeather.MaximalTemperature -= 273.15;
+            weatherData.MainWeather.MaximalTemperature -= 273.15;//вынести в константы
 
             weatherData.MainWeather.Temperature -= 273.15;
         }
+
         private void SetIconURL(WeatherDataModel weatherData)
         {
             if (weatherData.WeatherElement == null)
@@ -88,7 +92,5 @@ namespace WeatherBLL.Services
                 x.Icon = $"http://openweathermap.org/img/wn/{x.Icon}@2x.png";
             });
         }
-
-
     }
 }

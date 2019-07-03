@@ -32,7 +32,8 @@ namespace UnitTests
                     }
                 }
             };
-            weatherDataProvider.Setup(x => x.GetWeatherDataAsync("Kharkiv", It.IsAny<string>()))
+            weatherDataProvider
+                .Setup(x => x.GetWeatherDataAsync("Kharkiv", It.IsAny<string>()))
                 .ReturnsAsync(successResult);
 
             var service = new WeatherService(weatherDataProvider.Object);
