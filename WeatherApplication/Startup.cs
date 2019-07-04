@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WeatherBLL.Configurations;
+using WeatherBLL.MyConfig;
 
 namespace WeatherApplication
 {
@@ -16,6 +17,7 @@ namespace WeatherApplication
         }
 
         public IConfiguration Configuration { get; }
+
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -31,6 +33,12 @@ namespace WeatherApplication
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            // Add functionality to inject IOptions<T>
+            services.AddOptions();
+
+            // Add our Config object so it can be injected
+            services.Configure<MyConf>(Configuration.GetSection("MyConfig"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

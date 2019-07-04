@@ -4,6 +4,8 @@ using WeatherBLL.Services;
 using Moq;
 using WeatherBLL.Models;
 using System.Collections.Generic;
+using WeatherBLL.MyConfig;
+using Microsoft.Extensions.Options;
 
 namespace UnitTests
 {
@@ -15,28 +17,45 @@ namespace UnitTests
         public void GetWeatherDataByCityAsyncWithValidDataSuccessResult()
         {
             //Подготовка
+            var key = new Mock<IOptions<MyConf>>();
             var weatherDataProvider = new Mock<IWeatherDataProvider>();
             var successResult = new WeatherDataModel()
             {
                 Name = "successResult",
+                Wind = new Wind()
+                {
+                    Speed = 2.5
+                },
                 MainWeather = new MainWeather()
                 {
                     MaximalTemperature = 1.0,
                     MinimalTemperature = 1.0,
-                    Temperature = 1.0
+                    Temperature = 1.0,
+                    Humidity = 20,
+                    Pressure = 10.5
                 },
-                WeatherElement = new List<WeatherElement>(){
+                WeatherElement = new List<WeatherElement>() {
                     new WeatherElement()
                     {
                         Icon = "12d"
                     }
-                }
+                },
+                Sys = new Sys()
+                {
+                    Sunrise = 1562212165,
+                    Sunset = 1562271597,
+                    Country = "UA"
+                },
+                Timezone = 3600,
+                
             };
+            
             weatherDataProvider
-                .Setup(x => x.GetWeatherDataAsync("Kharkiv", It.IsAny<string>()))
+                .Setup(x => x.GetWeatherDataAsync("Kharkiv", "key"))
                 .ReturnsAsync(successResult);
 
-            var service = new WeatherService(weatherDataProvider.Object);
+
+            var service = new WeatherService(weatherDataProvider.Object, key.Object);
 
             //Выполнение
             var result = service.GetWeatherDataByCityAsync("Kharkiv").Result;
@@ -50,6 +69,7 @@ namespace UnitTests
         public void GetWeatherDataByCityAsyncWithInvalidTempError()
         {
             //Подготовка
+            var key = new Mock<IOptions<MyConf>>();
             var weatherDataProvider = new Mock<IWeatherDataProvider>();
             var successResult = new WeatherDataModel()
             {
@@ -60,15 +80,21 @@ namespace UnitTests
                     {
                         Icon = "12d"
                     }
-                }
+                },
+                Sys = new Sys()
+                {
+                    Sunrise = 1562212165,
+                    Sunset = 1562271597
+                },
+                Timezone = 3600
             };
-            weatherDataProvider.Setup(x => x.GetWeatherDataAsync("InvalidTemp", It.IsAny<string>()))
+            weatherDataProvider.Setup(x => x.GetWeatherDataAsync("InvalidTempCity", It.IsAny<string>()))
                 .ReturnsAsync(successResult);
 
-            var service = new WeatherService(weatherDataProvider.Object);
+            var service = new WeatherService(weatherDataProvider.Object, key.Object);
 
             //Выполнение
-            var result = service.GetWeatherDataByCityAsync("InvalidTemp").Result;
+            var result = service.GetWeatherDataByCityAsync("InvalidTempCity").Result;
 
             //Проверка
             Assert.IsNull(result);
@@ -78,6 +104,7 @@ namespace UnitTests
         public void GetWeatherDataByCityAsyncInvalidIconError()
         {
             //Подготовка
+            var key = new Mock<IOptions<MyConf>>();
             var weatherDataProvider = new Mock<IWeatherDataProvider>();
             var successResult = new WeatherDataModel()
             {
@@ -88,15 +115,21 @@ namespace UnitTests
                     MinimalTemperature = 1.0,
                     Temperature = 1.0
                 },
-                WeatherElement = null
+                WeatherElement = null,
+                Sys = new Sys()
+                {
+                    Sunrise = 1562212165,
+                    Sunset = 1562271597
+                },
+                Timezone = 3600
             };
-            weatherDataProvider.Setup(x => x.GetWeatherDataAsync("InvalidIcon", It.IsAny<string>()))
+            weatherDataProvider.Setup(x => x.GetWeatherDataAsync("InvalidIconCity", It.IsAny<string>()))
                 .ReturnsAsync(successResult);
 
-            var service = new WeatherService(weatherDataProvider.Object);
+            var service = new WeatherService(weatherDataProvider.Object, key.Object);
 
             //Выполнение
-            var result = service.GetWeatherDataByCityAsync("InvalidIcon").Result;
+            var result = service.GetWeatherDataByCityAsync("InvalidIconCity").Result;
 
             //Проверка
             Assert.IsNull(result);

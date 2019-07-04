@@ -17,6 +17,7 @@ namespace WeatherBLL.Configurations
 
             services.AddRefitClient<IWeatherDataProvider>()
                 .ConfigureHttpClient(c => c.BaseAddress = new Uri(WeaterAPIURL));
+
         }
     }
 }

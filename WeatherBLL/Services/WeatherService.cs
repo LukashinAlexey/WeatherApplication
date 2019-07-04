@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using System;
 using System.Threading.Tasks;
 using WeatherBLL.Interfaces;
 using WeatherBLL.Models;
+using WeatherBLL.MyConfig;
 
 namespace WeatherBLL.Services
 {
@@ -11,20 +14,24 @@ namespace WeatherBLL.Services
         public const int SecondsInOneHour = 3600;
         public const int SecondsInOneMinute = 60;
         public const double ValueCelciusAtZeroKelvin = -273.15;
-        private const string _weaterAPIKey = "76dc8ff0fe330fb97e42bf67173c373b"; //вынести ключ в аппсетингс
         private readonly IWeatherDataProvider _weatherDataProvider;
 
-        public WeatherService(IWeatherDataProvider weatherDataProvider)
+
+        public WeatherService(IWeatherDataProvider weatherDataProvider, IOptions<MyConf> key)
         {
+            
             _weatherDataProvider = weatherDataProvider;
+            MyConf = key.Value;
         }
+
+        public MyConf MyConf { get; }
 
         public async Task<WeatherDataModel> GetWeatherDataByCityAsync(string city)
         {
             WeatherDataModel weatherData;
             try
             {
-                weatherData = await _weatherDataProvider.GetWeatherDataAsync(city, _weaterAPIKey);
+                weatherData = await _weatherDataProvider.GetWeatherDataAsync(city, MyConf.Key);
 
                 if (weatherData == null)
                 {
