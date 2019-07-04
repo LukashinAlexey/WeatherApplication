@@ -8,11 +8,11 @@ namespace WeatherApplication.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IWeatherService _weatherService;
+        private readonly IWeatherService WeatherService;
 
         public HomeController(IWeatherService weatherService)
         {
-            _weatherService = weatherService;
+            WeatherService = weatherService;
         }
 
         public IActionResult Index()
@@ -22,7 +22,7 @@ namespace WeatherApplication.Controllers
 
         public async Task<IActionResult> GetWeatherDataByCity(string city)
         {
-            var weather = await _weatherService.GetWeatherDataByCityAsync(city);
+            var weather = await WeatherService.GetWeatherDataByCityAsync(city);
             return View(weather);
         }
 
