@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using System;
 using System.Threading.Tasks;
 using WeatherBLL.Interfaces;
@@ -16,10 +15,8 @@ namespace WeatherBLL.Services
         public const double ValueCelciusAtZeroKelvin = -273.15;
         private readonly IWeatherDataProvider _weatherDataProvider;
 
-
         public WeatherService(IWeatherDataProvider weatherDataProvider, IOptions<MyConf> key)
-        {
-            
+        {            
             _weatherDataProvider = weatherDataProvider;
             MyConf = key.Value;
         }
@@ -85,7 +82,7 @@ namespace WeatherBLL.Services
 
             weatherData.WeatherElement.ForEach(x =>
             {
-                x.Icon = $"http://openweathermap.org/img/wn/{x.Icon}@2x.png";
+                x.Icon = $"https://openweathermap.org/img/wn/{x.Icon}@2x.png";
             });
         }
 
