@@ -16,8 +16,7 @@ namespace UnitTests
         [TestMethod]
         public void GetWeatherDataByCityAsyncWithValidDataSuccessResult()
         {
-            //Подготовка
-            IOptions<MyConf> someOptions = Options.Create<MyConf>(new MyConf() { Key = "123" });           
+            IOptions<MyConf> someOptions = Options.Create(new MyConf() { Key = "123" });           
 
             var weatherDataProvider = new Mock<IWeatherDataProvider>();
             var successResult = new WeatherDataModel()
@@ -55,10 +54,8 @@ namespace UnitTests
 
             var service = new WeatherService(weatherDataProvider.Object, someOptions);
 
-            //Выполнение
             var result = service.GetWeatherDataByCityAsync("Kharkiv").Result;
 
-            //Проверка
             Assert.IsNotNull(result);
             Assert.AreEqual(result.Name, "successResult");
         }
@@ -66,8 +63,7 @@ namespace UnitTests
         [TestMethod]
         public void GetWeatherDataByCityAsyncWithInvalidTempError()
         {
-            //Подготовка
-            IOptions<MyConf> someOptions = Options.Create<MyConf>(new MyConf() { Key = "123" });
+            IOptions<MyConf> someOptions = Options.Create(new MyConf() { Key = "123" });
 
             var weatherDataProvider = new Mock<IWeatherDataProvider>();
             var successResult = new WeatherDataModel()
@@ -98,18 +94,15 @@ namespace UnitTests
 
             var service = new WeatherService(weatherDataProvider.Object, someOptions);
 
-            //Выполнение
             var result = service.GetWeatherDataByCityAsync("Kharkiv").Result;
 
-            //Проверка
             Assert.IsNull(result);
         }
 
         [TestMethod]
         public void GetWeatherDataByCityAsyncInvalidIconError()
         {
-            //Подготовка
-            IOptions<MyConf> someOptions = Options.Create<MyConf>(new MyConf() { Key = "123" });
+            IOptions<MyConf> someOptions = Options.Create(new MyConf() { Key = "123" });
 
             var weatherDataProvider = new Mock<IWeatherDataProvider>();
             var successResult = new WeatherDataModel()
@@ -142,10 +135,8 @@ namespace UnitTests
 
             var service = new WeatherService(weatherDataProvider.Object, someOptions);
 
-            //Выполнение
             var result = service.GetWeatherDataByCityAsync("Kharkiv").Result;
 
-            //Проверка
             Assert.IsNull(result);
         }  
     }

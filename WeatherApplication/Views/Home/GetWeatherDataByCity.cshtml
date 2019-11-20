@@ -13,7 +13,7 @@
         else
         {
 
-            String ss = @Model.WeatherElement.Last().Icon;
+            var ss = @Model.WeatherElement.Last().Icon;
             <h2><b>Weather in @Model.Sys.Country @Model.Name</b></h2>
             <h3>Current temperature is @Model.MainWeather.Temperature°C <img src=@Model.WeatherElement.Last().Icon></h3>
             <p>

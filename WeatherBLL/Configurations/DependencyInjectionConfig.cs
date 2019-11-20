@@ -9,14 +9,14 @@ namespace WeatherBLL.Configurations
 {
     public static class DependencyInjectionConfig
     {
-        private const string WeaterAPIURL = "http://api.openweathermap.org";
+        private const string WeaterApiUrl = "http://api.openweathermap.org";
 
         public static void ConfigureDependencyInjection(this IServiceCollection services)
         {
             services.AddTransient<IWeatherService, WeatherService>();
 
             services.AddRefitClient<IWeatherDataProvider>()
-                .ConfigureHttpClient(c => c.BaseAddress = new Uri(WeaterAPIURL));
+                .ConfigureHttpClient(c => c.BaseAddress = new Uri(WeaterApiUrl));
 
         }
     }

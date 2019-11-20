@@ -39,7 +39,7 @@ namespace WeatherBLL.Services
                 ConvertKelvinToCelcil(weatherData);
                 ConvertTimeToString(weatherData);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 weatherData = null;
             }
